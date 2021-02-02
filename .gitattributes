@@ -1,2 +1,4 @@
 * linguist-vendored
+*.cs linguist-detectable=true
+*.js linguist-detectable=true
 *.java linguist-vendored=false

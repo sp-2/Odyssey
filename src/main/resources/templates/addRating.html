@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head th:replace="common/header :: common-header" />
+
+<body> 
+	<div th:replace="common/header :: navbar" />
+
+	<div class="container ">
+		<h5 th:text="${piano.title}"></h5>
+		<p>Leaving a rating:</p>
+			<div class="panel panel-default">
+		  		<div class="panel-body" style="background-color: #ededed; margin-top: 0px;">
+		  			<form action="#" th:action="@{/user/pianos/new/rating/} +${piano.id}" th:object="${rating}" method="post" enctype="multipart/form-data">
+			    		<div class="form-group row">
+	    					<label for="comment_text" class="col-sm-2 col-form-label">Comment:</label>
+				    			<div class="col-sm-6">
+				      				<textarea  class="form-control" id="comment_text" name="comment_text" placeholder="Comment" th:value="${rating.comment_text}" ></textarea>
+				    			</div>
+				  		</div>	
+			  			<div class="form-group row">
+			    			<label for="value" class="col-sm-2 col-form-label">Rating:</label>
+			  					<select th:field="*{value}" >
+	    							<option th:each="i : ${#numbers.sequence(1, 5)}" th:value="${i}" th:text="${i}" th:selected="${i==5}"></option>
+								</select>
+						</div>
+			  			<button type="submit" class="btn btn-success">Add Rating</button>
+			  			<a  class="btn btn-danger" th:href="@{/pianos/show/}+${piano.id}">Cancel</a>		  			
+					</form>
+				</div>
+			</div>					
+	</div>
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+
+</body>
+</html>
+

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body> 
+	  <div th:replace="common/header :: navbar" />
+
+      <div class="container ">
+      		<h2>Update Piano</h2>
+     		<div class="panel panel-default">
+			
+			  <div class="panel-body" style="background-color: #ededed; margin-top: 0px;">
+			  	<form action="#" th:action="@{/admin/pianos/} + ${piano.id}" th:object="${piano}" method="post" enctype="multipart/form-data">
+				    <input type="hidden" name="_method" value="put">
+				    <div class="form-group row">
+		    			<label for="title" class="col-sm-2 col-form-label">Title:</label>
+		    			<div class="col-sm-6">
+		      				<input required="required" type="text" class="form-control" id="title" name="title" placeholder="Title" th:value="${piano.title}">
+		    			</div>
+		  			</div>
+				    <div class="form-group row">
+		    			<label for="description" class="col-sm-2 col-form-label">Description:</label>
+		    			<div class="col-sm-6">
+		      				<textarea class="form-control" id="description" name="description" placeholder="Description" th:value="${piano.description}" th:text="${piano.description}" ></textarea>
+		    			</div>
+		  			</div>
+				    <div class="form-group row">
+		    			<label for="make" class="col-sm-2 col-form-label">Make:</label>
+		    			<div class="col-sm-6">
+		      				<input required="required" type="text" class="form-control" id="make" name="make" placeholder="Make"  th:value="${piano.make}">
+		    			</div>
+		  			</div>
+		  			<div class="form-group row">
+		    			<label for="model" class="col-sm-2 col-form-label">Model:</label>
+		    			<div class="col-sm-6">
+		      				<input required="required" type="text" class="form-control" id="model" name="model" placeholder="Model" th:value="${piano.model}">
+		    			</div>
+		  			</div>
+				    <div class="form-group row">
+		    			<label for="price" class="col-sm-2 col-form-label">Price:</label>
+		    			<div class="col-sm-6">
+		    				<div class="input-group">
+		    					<span class="input-group-addon">$</span>
+		      					<input required="required" type="number" step="0.1" class="form-control" id="price" name="price" placeholder="Price" th:value="${piano.price}">
+		    				</div>
+		    			</div>
+		  			</div>
+		  			<div class="form-group row">
+		    			<label for="digital" class="col-sm-2 col-form-label">Digital:</label>
+		    			<div class="col-sm-6" >
+		    				<select th:value="${piano.digital}" required="required" class="form-control" id="digital" name="digital" th:field="${piano.digital}">
+					   			<option value="No">No</option>
+					   			<option value="Yes">Yes</option>
+					   		</select>
+		    			</div>
+		  			</div>
+		  			<div class="form-group row">
+		    			<label for="grand_upright" class="col-sm-2 col-form-label">Grand or Upright:</label>
+		    			<div class="col-sm-6" >
+		    				<select th:value="${piano.grand_upright}"  required="required" class="form-control" id="grand_upright" name="grand_upright" th:field="${piano.grand_upright}" >
+					   			<option value="Upright">Upright</option>
+					   			<option value="Grand">Grand</option>
+					   		</select>
+		    			</div>
+		  			</div>
+				    <div class="form-group row">
+				    	<label for="rent_sale" class="col-sm-2 col-form-label">Rent or Sale:</label>
+					    <div class="col-sm-6">
+					    	<select th:value="${piano.rent_sale}"  required="required" class="form-control" id="rent_sale" name="rent_sale">
+					   			<option value="Sale">Sale</option>
+					   			<option value="Rent">Rent</option>
+					   		</select>
+					    </div>
+				    </div>
+				    <div class="form-group row">
+				    	<label for="category" class="col-sm-2 col-form-label">Category:</label>
+					    <div class="col-sm-6">
+					    	<select th:value="${piano.category}"  required="required" class="form-control" id="category" name="category" placeholder="Category" >
+					   			<option value="New">New</option>
+					   			<option value="Used">Used</option>
+					   		</select>
+					    </div>
+				    </div>  			
+				    <div class="form-group row">
+				    	<label for="quantity" class="col-sm-2 col-form-label">Quantity:</label>
+					    <div class="col-sm-6">
+					    	<input  required="required" type="number" step="0.1" class="form-control" id="quantity" name="quantity" placeholder="Quantity" th:value="${piano.quantity}">
+					    </div>
+				    </div>
+				    <div class="form-group row">
+		    			<label for="info" class="col-sm-2 col-form-label">Information:</label>
+		    			<div class="col-sm-6">
+		      				<textarea  class="form-control" id="info" name="info" placeholder="Information" th:value="${piano.info}" th:text="${piano.info}" ></textarea>
+		    			</div>
+		  			</div>
+		  			<div class="form-group row">
+		    			<label for="spec" class="col-sm-2 col-form-label">Specifications:</label>
+		    			<div class="col-sm-6">
+		      				<textarea  class="form-control" id="spec" name="spec" placeholder="Specifications" th:value="${piano.spec}" th:text="${piano.spec}"></textarea>
+		    			</div>
+		  			</div>
+		  			<div class="form-group row">
+		    			<label for="info2" class="col-sm-2 col-form-label">Information 2:</label>
+		    			<div class="col-sm-6">
+		      				<textarea  class="form-control" id="info2" name="info2" placeholder="Information 2" th:value="${piano.info2}" th:text="${piano.info2}" ></textarea>
+		    			</div>
+		  			</div>
+				   <div class="form-group row">
+				    	<label for="pianoimages" class="col-sm-2 col-form-label">Image:</label>
+					    <div class="col-sm-6">
+					    	<input type="file" id="pianoimages" name="pianoimages" placeholder="Image" th:value="${piano.pianoimages}">
+					    </div>
+				    </div>
+				    <div class="form-group row">
+				    	<label for="pianovideos" class="col-sm-2 col-form-label">Video:</label>
+					    <div class="col-sm-6">
+					    	<input type="file" id="pianovideos" name="pianovideos" placeholder="Video" th:value="${piano.pianovideos}">
+					    </div>
+				    </div> 
+		
+		  			<button type="submit" class="btn btn-success">Update Piano</button>
+		  			<a  class="btn btn-danger" th:href="@{/admin/pianos/listAllPianos}">Cancel</a>		  			
+				</form>
+				
+  </div>
+</div>
+			
+</div>
+<div th:replace="common/header :: body-bottom-scripts" />
+
+</body>
+</html>

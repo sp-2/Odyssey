@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:fragment="common-header">
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Odyssey Pianos</title>
+
+<!-- Bootstrap core CSS -->
+<link href="/css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- Custom styles for this template -->
+<link href="/css/style.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+<script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
+<script>tinymce.init({ selector:'textarea' });</script>
+</head>
+
+  <body> 
+    <div th:fragment="navbar">
+  	  <div class="page-top" style="width:100%; height:20px; background-color: #f46b42;"><span style="color:white; float:right"  th:if="${session.userId}" th:text="'Welcome '+${session.userName}+'!&nbsp&nbsp&nbsp&nbsp'"></span></div>
+      <!-- Static navbar -->
+	    <nav class="navbar navbar-default navbar-inverse"> 
+	        <div class="container-fluid">
+	          <div class="navbar-header">
+	            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	              <span class="sr-only">Toggle navigation</span>
+	              <span class="icon-bar"></span>
+	              <span class="icon-bar"></span>
+	              <span class="icon-bar"></span>
+	            </button>
+	            <a class="navbar-brand" href="/" >ODYSSEY PIANOS </a>
+	          </div>
+	          <div id="navbar" class="navbar-collapse collapse">
+	            <ul class="nav navbar-nav">
+	              <form class="navbar-form" th:action='@{/search}' method='post'>
+	              	<div class="form-group">
+	              		<input type="text" name="searchKeyword" class="form-control" placeholder="" />
+	              	</div>
+	              	<button type="submit" class="btn btn-default">Search</button>
+	              </form>
+	            </ul>
+	            <ul class="nav navbar-nav navbar-right">
+	              <li class="dropdown">
+	                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"  th:if="${session.userId}">PIANOS <span class="caret"></span></a>
+	                <ul class="dropdown-menu">
+	                  <li><a href="/pianos/listAll">Browse Pianos</a></li>          
+	                  <li><a href="#">Browse Rentals</a></li>
+	                  <li><a href="#">Store Hours &#38; Directions</a></li>
+	                </ul>
+	              </li>
+
+	              <li class="dropdown">
+	                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:if="${session.userRole} == 'ADMIN'" >ADMIN PORTAL <span class="caret"></span></a>
+	                <ul class="dropdown-menu">
+	                  <li><a href="/admin/pianos/add" th:if="${session.userId}" >Add New Product</a></li>
+	                  <li><a href="/admin/pianos/listAllPianos" th:if="${session.userId}" >List All Products</a></li>              
+	                </ul>
+	              </li>
+	              
+	              <li class="dropdown">
+	                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">MY ACCOUNT <span class="caret"></span></a>
+	                <ul class="dropdown-menu">
+	                  <li><a href="/myAccount/login" th:unless="${session.userId}">Sign In</a></li>
+	                  <li><a href="/myAccount/register" th:unless="${session.userId}">Sign Up</a></li>
+	                  <li><a href="/myAccount/myProfile" th:if="${session.userId}">My Profile</a></li>
+	                  <li><a href="/myAccount/myProfileEdit" th:if="${session.userId}">Edit My Profile</a></li>
+	                  <li><a href="/myAccount/myOrders" th:if="${session.userId}">My Orders</a></li>                  
+	                </ul>
+	              </li>
+	              
+	              <li><a href="#">SHOPPING CART</a></li>
+	              <li><a href="/logout" th:if="${session.userId}" >LOGOUT</a></li>
+
+	            </ul>
+	          </div><!--/.nav-collapse -->
+	        </div><!--/.container-fluid -->
+	      </nav>
+     </div>
+     <div th:fragment="footer">
+     	<!-- Footer -->
+	<footer class="page-footer " style="background-color: #101010; color:white">
+
+    <!-- Footer Links -->
+    <div class="container text-center text-md-left">
+
+      <!-- Grid row -->
+      <div class="row mt-3">
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3">
+
+          <!-- Content -->
+          <h6 class="text-uppercase font-weight-bold">Odyssey Piano Store</h6>
+          <hr style="width: 60px; color:white">
+          <p>The one-stop shop for all your piano needs. Family owned establishment since 1956.</p>
+
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2">
+
+          <!-- Links -->
+          <h6 class="text-uppercase font-weight-bold">Products</h6>
+          <hr style="width: 60px; color:white">
+          <p>
+            <a style="color:white" href="#!">Pianos</a>
+          </p>
+          <p>
+            <a style="color:white" href="#!">Rentals</a>
+          </p>
+          <p>
+            <a style="color:white" href="#!">Lessons</a>
+          </p>
+          <p>
+            <a style="color:white" href="#!">Tuners</a>
+          </p>
+
+        </div>
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+          <!-- Links -->
+          <h6 class="text-uppercase font-weight-bold" >Useful links</h6>
+          <hr style="width: 60px; color:white">
+          <p>
+            <a style="color:white" href="#!">Your Account</a>
+          </p>
+          <p>
+            <a style="color:white" href="#!">Shipping Info</a>
+          </p>
+          <p>
+            <a style="color:white" href="#!">Careers</a>
+          </p>
+          <p>
+            <a style="color:white" href="#!">Help</a>
+          </p>
+
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+		<div class="col-md-4 col-lg-3 col-xl-3  ">
+          <!-- Links -->
+          <h6 class="text-uppercase font-weight-bold">Contact</h6>
+          <hr style="width: 60px; color:white">
+          <p>
+            <i class="fa fa-home"></i> Santa Clara, CA, 95050, US</p>
+          <p>
+            <i class="fa fa-envelope"></i> support@odyssey.com</p>
+          <p>
+            <i class="fa fa-phone"></i> 1800-ODYSSEY</p>
+
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row -->
+
+    </div>
+    <!-- Footer Links -->
+	<br>
+    <!-- Copyright -->
+    <div class="footer-copyright text-center">© 2018 Copyright:
+      <a style="color:white" href="/"> Odyssey.com</a>
+    </div>
+    <br>
+    <!-- Copyright -->
+
+  </footer>
+  <!-- Footer -->
+     </div>
+     
+     
+     <div th:fragment="body-bottom-scripts">
+     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    	<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    	<script src="/js/bootstrap.min.js"></script>
+     </div>
+  </body>
+  </html>

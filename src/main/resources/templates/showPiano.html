@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head th:replace="common/header :: common-header" />
+
+<body> 
+	  <div th:replace="common/header :: navbar" />
+
+      <div class="container ">
+		<div>
+			<ol class="breadcrumb">
+ 					<li class="breadcrumb-item active"><a th:href="@{/pianos/listAll}">Back</a></li>
+			</ol>
+		</div>		
+		
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<img th:src="@{/image/piano/image/} + ${piano.id}+'.png'" class="img-responsive center-block" />
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<h3 th:text="${piano.title}"></h3>
+				<div class="row">
+					<div class="col-md-6">
+						<p><strong>Make: </strong><span th:text="${piano.make}"></span></p>
+						<p><strong>Model: </strong><span th:text="${piano.model}"></span></p>
+						<p><strong>Digital: </strong><span th:text="${piano.digital}"></span></p>
+						<p><strong>Grand/Upright: </strong><span th:text="${piano.grand_upright}"></span></p>
+						<p><strong>New/Used: </strong><span th:text="${piano.category}"></span></p>
+						<p><strong>Sale/Rent: </strong><span th:text="${piano.rent_sale}"></span></p>
+					 	<p><strong>Price: $</strong><span th:text="${#numbers.formatDecimal(piano.price, 0, 'COMMA', 2, 'POINT')}"></span></p>
+						<p><strong>Quantity in Stock: </strong><span th:text="${piano.quantity}"></span></p> 
+					</div>
+					<div class="col-md-6"> 
+						<div class="panel panel-danger" style="border-width: 5px; margin-top:20px;">
+							<div class="panel-body">
+								<div class="center=block">
+									<h4>Price: $<span th:text="${#numbers.formatDecimal(piano.price, 0, 'COMMA', 2, 'POINT')}"></span> and free shipping.</h4>
+									<h4 th:if="*{piano.quantity&gt;0}" style="color: green"> In Stock</h4> 
+									<h4 th:unless="*{piano.quantity&gt;0}" style="color: red"> Out of Stock</h4>
+									<div th:if="*{piano.quantity&gt;0}">
+										<p>Qty:									
+											<select name="qty">
+												<option th:each="qty : ${qtyList}" th:value="${qty}" th:text="${qty}">
+												</option>
+											</select> 
+										</p>											
+									</div>
+									<button type="submit" class="btn btn-warning" style="color:black;border:1px solid black;padding:10px 40px 10px 40px;">Add to Cart</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<p><strong>Description: </strong><span th:utext="${piano.description}"></span></p>
+				<div class="panel panel-success" style="border-width: 5px; margin-top:20px;">
+					<div class="panel-body">						
+						<div class="center=block">
+						    <h4>Questions?</h4>
+							<h4>Talk to an expert now at: <span style="color: green">1800-ODYSSEY</span></h4>
+							<h4>Live Chat: <span style="color: green"><a th:href="@{/chat}"><span th:text="Chat"></span></a></h4> 
+							<h4>Video chat for live demos: <span style="color: green"><a th:href="@{/video}"><span th:text="'Video'+' '+'Chat'"></span></a></h4> 
+							<h4>Email us for more info: <span style="color: green"><a th:href="@{/email/}+${piano.id}"><span th:text="Email"></span></a></h4> 							
+						</div>
+					</div>
+			    </div> 				    
+			    <div class="panel panel-info" style="border-width: 5px; margin-top:20px;">
+					<div class="panel-body">						
+						<div class="center=block">
+							<h4>Get Directions: <span style="color: green"><a th:href="@{/maps}"><span th:text="Map"></span></a></h4> 						
+						</div>
+					</div>
+			    </div> 			    			    			
+			</div>
+		</div>
+    			
+
+		<div id="Tab">	
+			<ul class="nav nav-tabs">
+				<li class="active"> <a  href="#1" data-toggle="tab">Overview</a></li>
+				<li><a href="#2" data-toggle="tab">Features</a></li>
+				<li><a href="#3" data-toggle="tab">Specifications</a></li>
+			</ul>
+		
+			<div class="tab-content ">
+				<div class="tab-pane active" id="1">
+		          <p th:utext="${piano.info}"></p>
+				</div>
+				<div class="tab-pane" id="2">
+		          <p th:utext="${piano.spec}"></p>
+				</div>
+		        <div class="tab-pane" id="3">
+		          <p th:utext="${piano.info2}"></p>
+				</div>
+			</div>
+		</div>
+
+		<hr></hr>
+		<div>
+			<h4>Customer Reviews</h4>
+	
+			<div>
+			  <div class="side">
+			    <div>5 star</div>
+			  </div>
+			  <div class="middle">
+			    <div class="bar-container">
+			      <div class="bar-5" th:style="|width:${piano.ratingsBarPercentage(4)}%|"></div>
+			    </div>
+			  </div>
+			  <div class="side right">
+			    <div><p><span th:utext="${#numbers.formatDecimal(piano.ratingsBarPercentage(4), 0, 'COMMA', 0, 'POINT')+'%'}"></span></p></div>
+			  </div>
+			  <div class="side">
+			    <div>4 star</div>
+			  </div>
+			  <div class="middle">
+			    <div class="bar-container">
+			      <div class="bar-4" th:style="|width:${piano.ratingsBarPercentage(3)}%|"></div>
+			    </div>
+			  </div>
+			  <div class="side right">
+			    <div><p><span th:utext="${#numbers.formatDecimal(piano.ratingsBarPercentage(3), 0, 'COMMA', 0, 'POINT')+'%'}"></span></p></div>
+			  </div>
+			  <div class="side">
+			    <div>3 star</div>
+			  </div>
+			  <div class="middle">
+			    <div class="bar-container">
+			      <div class="bar-3" th:style="|width:${piano.ratingsBarPercentage(2)}%|"></div>
+			    </div>
+			  </div>
+			  <div class="side right">
+			    <div><p><span th:utext="${#numbers.formatDecimal(piano.ratingsBarPercentage(2), 0, 'COMMA', 0, 'POINT')+'%'}"></span></p></div>
+			  </div>
+			  <div class="side">
+			    <div>2 star</div>
+			  </div>
+			  <div class="middle">
+			    <div class="bar-container">
+			      <div class="bar-2" th:style="|width:${piano.ratingsBarPercentage(1)}%|"></div>
+			    </div>
+			  </div>
+			  <div class="side right">
+			    <div><p><span th:utext="${#numbers.formatDecimal(piano.ratingsBarPercentage(1), 0, 'COMMA', 0, 'POINT')+'%'}"></span></p></div>
+			  </div>
+			  <div class="side">
+			    <div>1 star</div>
+			  </div>
+			  <div class="middle">
+			    <div class="bar-container">
+			      <div class="bar-1" th:style="|width:${piano.ratingsBarPercentage(0)}%|"></div>
+			    </div>
+			  </div>
+			  <div class="side right">
+			    <div><p><span th:utext="${#numbers.formatDecimal(piano.ratingsBarPercentage(0), 0, 'COMMA', 0, 'POINT')+'%'}"></span></p></div>
+			  </div>
+			</div>
+			<!-- <div class="rating-box">
+			    <div class="rating" style="width:70%;"><span class="fa fa-star-o"></span></div>
+			</div> -->
+	
+			<th:block th:each="i: ${#numbers.sequence(1, 5)}">
+				<span class="fa fa-star checked" th:if="${piano.avgRatingVal() &gt;= i}" ></span>
+				<!-- <span class="fa fa-star-half-full checked" th:if="${piano.avgRatingVal() &gt;= i}" ></span> -->
+				<span class="fa fa-star" th:unless="${piano.avgRatingVal() &gt;= i}"></span>
+			</th:block>
+	
+			<p th:text="${piano.avgRating()}+ ' out of 5 stars'"></p>
+	
+			<p>Share your thoughts with other Customers</p>
+	
+			<a  class="btn btn-success" th:href="@{/user/pianos/new/rating/} +${piano.id}">Write Your Review</a>
+	</div>
+	<br>
+	
+    <div>	
+	 <table id="customTable" >
+		<thead>
+			<tr>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="rating-item" th:each="rating: ${piano.sortRating()}">		
+				<td><div class="panel panel-default ">		
+	  					<div class="panel-body" style="background-color: #f46b420f; margin-top: 0px;">
+							<div class="row">
+								<p><span th:utext="${rating.rated_by_user.userName}"></span></p>
+								<th:block th:each="i: ${#numbers.sequence(1, 5)}">
+									<span class="fa fa-star checked" th:if="${rating.value &gt;= i}" ></span>
+									<span class="fa fa-star" th:unless="${rating.value &gt;= i}"></span>
+									</th:block>
+								<p><span th:utext="${rating.comment_text}"></span></p>								
+							</div>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	 </table>
+    </div>	
+	
+</div>	
+
+<div th:replace="common/header :: body-bottom-scripts" />
+
+</body>
+</html>

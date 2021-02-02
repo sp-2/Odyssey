@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head th:replace="common/header :: common-header" /> 
+   <title>WebRTC Video</title>
+   <script type='text/javascript' src='https://cdn.scaledrone.com/scaledrone.min.js'></script>
+</head>
+
+<style>
+
+   body { 
+      background: #eee; 
+      background-color: #f46b420f;
+      padding: 5% 0; 
+   } 
+
+   video { 
+     /*  background: black;  */
+      background-color: #f3d1ca94;
+      border: 1px solid gray; 
+   }
+
+   .call-page { 
+      position: relative; 
+      display: block; 
+      margin: 0 auto; 
+      width: 500px; 
+      height: 500px; 
+   } 
+
+   #localVideo { 
+      width: 150px; 
+      height: 150px; 
+      position: absolute; 
+      top: 15px; 
+      right: 15px; 
+   }
+
+   #remoteVideo { 
+      width: 500px; 
+      height: 500px; 
+   }
+
+</style>	
+   
+<body> 
+    <div th:replace="common/header :: navbar" />
+
+	<div class="container ">	
+    <noscript>
+      <h2>Sorry! Your browser doesn't support Javascript</h2>
+    </noscript>
+    <div class="container ">
+		<div>
+			<ol class="breadcrumb">
+ 					<li class="breadcrumb-item active"><button onclick="goBack()">Go Back</button></li>
+			</ol>
+		</div> 
+	    <h2>Welcome <span th:utext="${userName}+'!'"></span></h2>
+	                
+	    <div id = "callPage" class = "call-page"> 
+		    <video id = "localVideo" autoplay></video> 
+		    <video id = "remoteVideo" autoplay></video>		
+		</div>
+	</div>
+    <script src="/js/webrtc_video.js"></script>
+    <script>
+		function goBack() {
+		    window.history.back()
+		}
+	</script>
+  </body>
+</html>

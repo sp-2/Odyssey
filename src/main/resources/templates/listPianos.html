@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/getRequest.js"></script>
+<head th:replace="common/header :: common-header" />
+
+<body style="background-color: #f3d1ca94;">
+    <div th:replace="common/header :: navbar" />
+
+       <div class="container">
+
+       <nav aria-label="breadcrumb">
+	  <ol class="breadcrumb  align-items-center lPianos">
+	    <li class="breadcrumb-item active" aria-current="page"><a href="/pianos/listAll">Browse ALL</a></li>
+	    <li class="breadcrumb-item"><a href="/pianos/listAll/new">Browse NEW</a></li>
+	    <li class="breadcrumb-item"><a href="/pianos/listAll/used">Browse USED</a></li>
+	    <li class="breadcrumb-item"><a href="/pianos/listAll/digital">Browse DIGITAL</a></li>
+	    <li class="breadcrumb-item"><a href="/pianos/listAll/rent">Browse RENTAL</a></li>
+	  </ol>
+	</nav>
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="panel panel-default ">		
+				  <div class="panel-body" style="background-color: #f46b420f; margin-top: 0px;">
+				  	<form action="#" th:action="@{/pianos/searchFilter}"  method="post" enctype="multipart/form-data">	
+				  	<div class="form-group row">
+					    	<label for="sortVal" class="col-sm-4 col-form-label">Sort:</label>
+						    <div class="col-sm-6">
+						    	<select class="form-control" id="sortVal" name="sortVal"  >
+						    		<option value="">Sort By</option>
+						   			<option value="created_desc">Newest First</option>
+						   			<option value="price_asc">Price Low -> High</option>
+						   			<option value="price_dsc">Price High -> Low</option>
+						   			<option value="make_asc">Make A -> Z</option>
+						   			<option value="make_dsc">Make Z -> A</option>
+						   			<option value="totalsold">Most Popular</option>
+						   			<option value="ratings_asc">Ratings</option>
+						   		</select>
+						    </div>
+					    </div>		
+					    <div class="form-group row">
+					    	<label for="make" class="col-sm-4 col-form-label">Make:</label>
+						    <div class="col-sm-6">
+						    	<select class="form-control" id="make" name="make"  >
+						    		<option value="">Select a Make</option>
+						   			<option value="Casio">Casio</option>
+						   			<option value="Kawaii">Kawaii</option>
+						   			<option value="Yamaha">Yamaha</option>
+						   			<option value="Nord">Nord</option>
+						   		</select>
+						    </div>
+					    </div>	
+					    <div class="form-group row">
+					    	<label for="grand_upright" class="col-sm-4 col-form-label">Grand or Upright:</label>
+						    <div class="col-sm-6">
+						    	<select   class="form-control" id="grand_upright" name="grand_upright"  >
+						    		<option value="">All</option>
+						   			<option value="grand">Grand</option>
+						   			<option value="upright">Upright</option>
+						   		</select>
+						    </div>
+					    </div>				    
+			  			<div class="form-group row">
+			    			<label for="stock" class="col-sm-4 col-form-label">In Stock Only:</label>
+			    			<div class="col-sm-2" >
+			    				<div class="form-check">
+			      					<input class="form-check-input" type="checkbox" id="stock" name="stock">
+			    				</div>
+			    			</div>
+			  			</div>		
+			  			<button id="searchButton" name="searchButton" onclick="retrievePianos()" type="button" 
+	                    >Search button</button>	  			
+					</form>				
+	  			</div>
+			</div>
+		</div>
+      		
+
+		<div class="col-md-8">
+			 <div th:if="${emptyList}">
+        		<h5 style="font-style: italic;">No items match your search!</h5>
+        	 </div>
+
+		     <div id="resultsBlock">
+				 <div class="table-responsive" th:fragment="result-table" id="result-table">
+					 <table id="customerTable" >
+						<thead>
+							<tr>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="piano-item" th:each="piano: ${pianos}">						
+								<td>
+									<div class="panel panel-default ">		
+				  						<div class="panel-body" style="background-color: #f46b420f; margin-top: 0px;">
+											<div class="row">
+												<div class="col-md-3">
+													<a th:href="@{/pianos/show/} +${piano.id}"><img th:src="@{/image/piano/image/} + ${piano.id}+'.png'" class="img-responsive center-block" /> </a>
+												</div>
+												<div class="col-md-9">
+													<p><a th:href="@{/pianos/show/} +${piano.id}"><span th:text="${piano.title}"></span> </a></p>
+													<p><span th:text="${piano.category}"></span> <span th:text="${piano.make}"> </span> <span th:text="${piano.model}"></span></p>
+													<p th:if="*{piano.digital == 'Yes'}"><span th:text="Digital"></span></p>
+													<p>For <span th:text="${piano.rent_sale}"></span></p>
+												 	<p>Price: $<span th:text="${#numbers.formatDecimal(piano.price, 0, 'COMMA', 2, 'POINT')}"></span></p>
+												 	<p th:if="*{piano.quantity&gt;0}" style="color: green"> In Stock</p>
+													<p th:unless="*{piano.quantity&gt;0}" style="color: red"> Out of Stock</p>
+													<p th:utext="${#strings.abbreviate(piano.description, 200)}"></p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			 </div>			 
+		</div>
+	  </div>
+    </div>
+
+
+<div th:replace="common/header :: body-bottom-scripts" />
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body> 
+	  <div th:replace="common/header :: navbar" />
+
+      <div class="container ">
+		<div>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item active"><a th:href="@{/admin/pianos/listAllPianos}">Back</a></li>
+				<li class="breadcrumb-item"><a th:href="@{/admin/pianos/edit/}+${piano.id}">Edit</a></li>
+			</ol>
+		</div>		
+		
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<img th:src="@{/image/piano/image/} + ${piano.id}+'.png'" class="img-responsive center-block" />
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<h3 th:text="${piano.title}"></h3>
+				<p><strong>Make: </strong><span th:text="${piano.make}"></span></p>
+				<p><strong>Model: </strong><span th:text="${piano.model}"></span></p>
+				<p><strong>Digital: </strong><span th:text="${piano.digital}"></span></p>
+				<p><strong>New/Used: </strong><span th:text="${piano.category}"></span></p>
+				<p><strong>Sale/Rent: </strong><span th:text="${piano.rent_sale}"></span></p>
+				<p><strong>Grand/Upright: </strong><span th:text="${piano.grand_upright}"></span></p>
+				<p><strong>Price: $</strong><span th:text="${piano.price}"></span></p>
+				<p><strong>Quantity: </strong><span th:text="${piano.quantity}"></span></p>
+				<p><strong>Description: </strong><span th:utext="${piano.description}"></span></p>
+			</div>
+		</div>
+    			
+</div>
+<div th:replace="common/header :: body-bottom-scripts" />
+
+</body>
+</html>

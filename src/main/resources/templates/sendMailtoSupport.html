@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head th:replace="common/header :: common-header" />
+
+<body> 
+	 <div th:replace="common/header :: navbar" />
+
+		<div class="container ">
+			<p>Send a message:</p>
+			
+			<div class="panel panel-default">
+		  		<div class="panel-body" style="background-color: #ededed; margin-top: 0px;">	  			
+		  			<form action="#" th:action="@{/pianos/sendMailMessage/}+${piano.id}"  method="post" enctype="multipart/form-data">
+			  			<div class="form-group row">
+			    			<label for="mail_to" class="col-sm-2 col-form-label">To:</label>
+			    			<div class="col-sm-6">
+			      				<p>support@admin.odyssey.com</p>
+			    			</div>
+			  			</div>
+		  				<div class="form-group row">
+			    			<label for="mail_from" class="col-sm-2 col-form-label">From:</label>
+			    			<div class="col-sm-6">
+			      				<input required="required" type="text" class="form-control" id="mail_from" name="mail_from" th:value="${user.email}">
+			    			</div>
+			  			</div>
+			  			<div class="form-group row">
+			    			<label for="mail_subject" class="col-sm-2 col-form-label">Subject:</label>
+			    			<div class="col-sm-6">
+			      				<input required="required" type="text" class="form-control" id="mail_subject" name="mail_subject" th:value="${piano.title}">
+			    			</div>
+			  			</div>
+			    		<div class="form-group row">
+	    					<label for="mail_text" class="col-sm-2 col-form-label">Message:</label>
+			    			<div class="col-sm-6">
+			      				<textarea  class="form-control" id="mail_text" name="mail_text" placeholder="Type message" th:utext="${mail_text}" ></textarea>
+			    			</div>
+				  		</div>	
+			  			<button type="submit" class="btn btn-success">Send Message</button>
+			  			<a  class="btn btn-danger" th:href="@{/pianos/show/}+${piano.id}">Cancel</a>	 	  			
+					</form>
+				</div>
+			</div>
+					
+		</div>
+
+		<div th:replace="common/header :: body-bottom-scripts" />
+
+</body>
+</html>
+
